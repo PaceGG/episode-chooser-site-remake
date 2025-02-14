@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 import AddGameModal from "./AddGameModal";
+import EditorWindow from "./EditorWindow";
 
 export interface GameSeries {
   id: string;
@@ -51,13 +52,19 @@ const GameList: React.FC = () => {
           <summary>{series.name}</summary>
           <ul>
             {seriesGames.map((game) => (
-              <li key={game.id}>{formatGame(game)}</li>
+              <div>
+                <li key={game.id}>
+                  {formatGame(game)} <EditorWindow game={game} />
+                </li>
+              </div>
             ))}
           </ul>
         </details>
       );
     }
   };
+
+  const handleRightCLick = () => {};
 
   const formatTime = (time: number) => {
     const hours = Math.floor(time / 3600);
