@@ -1,0 +1,196 @@
+{
+  "games": [
+    {
+      "id": "1735483980936",
+      "name": "solo gamme",
+      "games": [
+        {
+          "name": "solo gamme",
+          "status": "none",
+          "time": 0,
+          "episodesCount": 0
+        }
+      ]
+    },
+    {
+      "id": "1735484006146",
+      "name": "solos",
+      "games": [
+        {
+          "name": "solos",
+          "status": "none",
+          "time": 0,
+          "episodesCount": 123123123
+        }
+      ]
+    },
+    {
+      "id": "1735484673497",
+      "name": "Series name 1",
+      "games": [
+        {
+          "name": "game 1",
+          "status": "none",
+          "time": 0,
+          "episodesCount": 0
+        },
+        {
+          "name": "game 2",
+          "status": "none",
+          "time": 0,
+          "episodesCount": 0
+        }
+      ]
+    },
+    {
+      "id": "1735484674738",
+      "name": "Series name 1",
+      "games": [
+        {
+          "name": "game 1",
+          "status": "none",
+          "time": 0,
+          "episodesCount": 0
+        },
+        {
+          "name": "game 2",
+          "status": "none",
+          "time": 0,
+          "episodesCount": 0
+        }
+      ]
+    },
+    {
+      "id": "1735484676498",
+      "name": "Series name 1",
+      "games": [
+        {
+          "name": "game 1",
+          "status": "none",
+          "time": 0,
+          "episodesCount": 0
+        },
+        {
+          "name": "game 2",
+          "status": "none",
+          "time": 0,
+          "episodesCount": 0
+        }
+      ]
+    },
+    {
+      "id": "1735484676646",
+      "name": "Series name 1",
+      "games": [
+        {
+          "name": "game 1",
+          "status": "none",
+          "time": 0,
+          "episodesCount": 0
+        },
+        {
+          "name": "game 2",
+          "status": "none",
+          "time": 0,
+          "episodesCount": 0
+        }
+      ]
+    },
+    {
+      "id": "1735484676790",
+      "name": "Series name 1",
+      "games": [
+        {
+          "name": "game 1",
+          "status": "none",
+          "time": 0,
+          "episodesCount": 0
+        },
+        {
+          "name": "game 2",
+          "status": "none",
+          "time": 0,
+          "episodesCount": 0
+        }
+      ]
+    },
+    {
+      "id": "1735484676919",
+      "name": "Series name 1",
+      "games": [
+        {
+          "name": "game 1",
+          "status": "none",
+          "time": 0,
+          "episodesCount": 0
+        },
+        {
+          "name": "game 2",
+          "status": "none",
+          "time": 0,
+          "episodesCount": 0
+        }
+      ]
+    },
+    {
+      "id": "1735484677061",
+      "name": "Series name 1",
+      "games": [
+        {
+          "name": "game 1",
+          "status": "none",
+          "time": 0,
+          "episodesCount": 0
+        },
+        {
+          "name": "game 2",
+          "status": "none",
+          "time": 0,
+          "episodesCount": 0
+        }
+      ]
+    },
+    {
+      "id": "1735484677199",
+      "name": "Series name 1",
+      "games": [
+        {
+          "name": "game 1",
+          "status": "none",
+          "time": 0,
+          "episodesCount": 0
+        },
+        {
+          "name": "game 2",
+          "status": "none",
+          "time": 0,
+          "episodesCount": 0
+        }
+      ]
+    },
+    {
+      "id": 1738638049034,
+      "name": "Игра",
+      "games": [
+        {
+          "name": "Игра 1",
+          "status": "none",
+          "time": 0,
+          "episodesCount": 0
+        },
+        {
+          "name": "Игра 2",
+          "status": "none",
+          "time": 0,
+          "episodesCount": 0
+        },
+        {
+          "name": "Игра 3",
+          "status": "none",
+          "time": 0,
+          "episodesCount": 0
+        }
+      ]
+    }
+  ]
+}
