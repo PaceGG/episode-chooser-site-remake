@@ -169,7 +169,7 @@
       ]
     },
     {
-      "id": 1738638049034,
+      "id": "1738638049034",
       "name": "Игра",
       "games": [
         {
@@ -186,6 +186,18 @@
         },
         {
           "name": "Игра 3",
+          "status": "none",
+          "time": 0,
+          "episodesCount": 0
+        }
+      ]
+    },
+    {
+      "id": 1739563859292,
+      "name": "Minecraft",
+      "games": [
+        {
+          "name": "Minecraft: Восхождение",
           "status": "none",
           "time": 0,
           "episodesCount": 0
