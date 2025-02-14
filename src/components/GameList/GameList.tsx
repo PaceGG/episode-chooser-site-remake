@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import AddGameModal from "./AddGameModal";
+import EditorWindow from "./EditorWindow";
 
-interface GameSeries {
+export interface GameSeries {
   id: number;
   name: string;
   games: Game[];
 }
 
-interface Game {
+export interface Game {
   name: string;
   status: string;
   time: number;
@@ -29,20 +30,30 @@ const GameList: React.FC = () => {
 
   const processGame = (game: GameSeries) => {
     if (game.games.length === 1) {
-      return <li>{formatGame(game.games[0])}</li>;
+      return (
+        <li>
+          {formatGame(game.games[0])} <EditorWindow game={game.games[0]} />
+        </li>
+      );
     } else {
       return (
         <details>
           <summary>{game.name}</summary>
           <ul>
             {game.games.map((game) => (
-              <li>{formatGame(game)}</li>
+              <div>
+                <li>
+                  {formatGame(game)} <EditorWindow game={game} />
+                </li>
+              </div>
             ))}
           </ul>
         </details>
       );
     }
   };
+
+  const handleRightCLick = () => {};
 
   const formatTime = (time: number) => {
     const hours = Math.floor(time / 3600);
