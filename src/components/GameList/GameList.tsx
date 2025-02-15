@@ -17,6 +17,7 @@ export interface Game {
   time: number;
   episodesCount: number;
   playlistLink: string;
+  order: number;
 }
 
 const GameList: React.FC = () => {
@@ -26,16 +27,17 @@ const GameList: React.FC = () => {
 
   const fetchGames = async () => {
     const seriesSnapshot = await getDocs(collection(db, "gameSeries"));
-    const seriesData = seriesSnapshot.docs.map(
-      (doc) => ({ id: doc.id, ...doc.data() } as GameSeries)
-    );
+    const seriesData = seriesSnapshot.docs
+      .map((doc) => ({ id: doc.id, ...doc.data() } as GameSeries))
+      .sort((a, b) => a.name.localeCompare(b.name));
     setGameSeries(seriesData);
 
     const gameSnapshot = await getDocs(collection(db, "game"));
-    const gameData = gameSnapshot.docs.map(
-      (doc) => ({ id: doc.id, ...doc.data() } as Game)
-    );
+    const gameData = gameSnapshot.docs
+      .map((doc) => ({ id: doc.id, ...doc.data() } as Game))
+      .sort((a, b) => a.order - b.order);
     setGames(gameData);
+    console.log(gameData);
   };
 
   useEffect(() => {

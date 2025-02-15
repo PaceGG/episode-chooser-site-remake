@@ -178,17 +178,22 @@ const AddGameModal: React.FC<AddGameModalProps> = ({
 
       const newGames: Game[] = [];
 
+      let orderCounter = 0;
       for (const game of gameslist) {
         const gameDocRef = await addDoc(collection(db, "game"), {
           ...game,
           seriesId: seriesDocRef.id,
+          order: orderCounter,
         });
 
         newGames.push({
           ...game,
           id: gameDocRef.id,
           seriesId: seriesDocRef.id,
+          order: orderCounter,
         });
+
+        orderCounter++;
       }
 
       setGames((prev) => [...prev, ...newGames]);
