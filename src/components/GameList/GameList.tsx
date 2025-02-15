@@ -5,12 +5,19 @@ import AddGameModal from "./AddGameModal";
 import EditorWindow from "./EditorWindow";
 
 export interface GameSeries {
+<<<<<<< HEAD
   id: string;
+=======
+  id: number;
+>>>>>>> ed1eb63de0aaa67adaa0163462f4c82bc9af2e7a
   name: string;
 }
 
 export interface Game {
+<<<<<<< HEAD
   id: string;
+=======
+>>>>>>> ed1eb63de0aaa67adaa0163462f4c82bc9af2e7a
   name: string;
   seriesId: string;
   status: string;
@@ -24,6 +31,7 @@ const GameList: React.FC = () => {
   const [games, setGames] = useState<Game[]>([]);
   const [showAddGameModal, setShowAddGameModal] = useState(false);
 
+<<<<<<< HEAD
   const fetchGames = async () => {
     const seriesSnapshot = await getDocs(collection(db, "gameSeries"));
     const seriesData = seriesSnapshot.docs.map(
@@ -46,14 +54,29 @@ const GameList: React.FC = () => {
     const seriesGames = games.filter((game) => game.seriesId === series.id);
     if (seriesGames.length === 1) {
       return <li key={seriesGames[0].id}>{formatGame(seriesGames[0])}</li>;
+=======
+  const processGame = (game: GameSeries) => {
+    if (game.games.length === 1) {
+      return (
+        <li>
+          {formatGame(game.games[0])} <EditorWindow game={game.games[0]} />
+        </li>
+      );
+>>>>>>> ed1eb63de0aaa67adaa0163462f4c82bc9af2e7a
     } else {
       return (
         <details key={series.id}>
           <summary>{series.name}</summary>
           <ul>
+<<<<<<< HEAD
             {seriesGames.map((game) => (
               <div>
                 <li key={game.id}>
+=======
+            {game.games.map((game) => (
+              <div>
+                <li>
+>>>>>>> ed1eb63de0aaa67adaa0163462f4c82bc9af2e7a
                   {formatGame(game)} <EditorWindow game={game} />
                 </li>
               </div>
