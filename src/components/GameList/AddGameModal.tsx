@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../../firebase";
+import { GameSeries, Game } from "./GameList";
 
 interface Input {
   id: number;
@@ -8,9 +10,15 @@ interface Input {
 
 interface AddGameModalProps {
   setModalVisible: (visible: boolean) => void;
+  setGameSeries: React.Dispatch<React.SetStateAction<GameSeries[]>>;
+  setGames: React.Dispatch<React.SetStateAction<Game[]>>;
 }
 
-const AddGameModal: React.FC<AddGameModalProps> = ({ setModalVisible }) => {
+const AddGameModal: React.FC<AddGameModalProps> = ({
+  setModalVisible,
+  setGameSeries,
+  setGames,
+}) => {
   const [inputs, setInputs] = useState<Input[]>([]);
   const [mainGameName, setMainGameName] = useState<string>("");
   const [history, setHistory] = useState<Input[][]>([]); // История для отката
@@ -147,6 +155,7 @@ const AddGameModal: React.FC<AddGameModalProps> = ({ setModalVisible }) => {
           status: "none",
           time: 0,
           episodesCount: 0,
+          playlistLink: "",
         },
       ];
     } else {
@@ -155,21 +164,34 @@ const AddGameModal: React.FC<AddGameModalProps> = ({ setModalVisible }) => {
         status: "none",
         time: 0,
         episodesCount: 0,
+        playlistLink: "",
       }));
     }
 
-    const gameData = {
-      id: Date.now(),
-      name: mainGameName,
-      games: gameslist,
-    };
-
     try {
-      const response = await axios.post(
-        "http://localhost:3003/games",
-        gameData
-      );
-      console.log("Game added successfully:", response.data);
+      const seriesDocRef = await addDoc(collection(db, "gameSeries"), {
+        name: mainGameName,
+      });
+
+      const newSeries = { id: seriesDocRef.id, name: mainGameName };
+      setGameSeries((prev) => [...prev, newSeries]);
+
+      const newGames: Game[] = [];
+
+      for (const game of gameslist) {
+        const gameDocRef = await addDoc(collection(db, "game"), {
+          ...game,
+          seriesId: seriesDocRef.id,
+        });
+
+        newGames.push({
+          ...game,
+          id: gameDocRef.id,
+          seriesId: seriesDocRef.id,
+        });
+      }
+
+      setGames((prev) => [...prev, ...newGames]);
     } catch (error) {
       console.error("Error adding game:", error);
     }

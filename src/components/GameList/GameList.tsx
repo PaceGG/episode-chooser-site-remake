@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../firebase";
 import AddGameModal from "./AddGameModal";
 
-interface GameSeries {
-  id: number;
+export interface GameSeries {
+  id: string;
   name: string;
-  games: Game[];
 }
 
-interface Game {
+export interface Game {
+  id: string;
   name: string;
+  seriesId: string;
   status: string;
   time: number;
   episodesCount: number;
@@ -17,26 +19,39 @@ interface Game {
 }
 
 const GameList: React.FC = () => {
-  const [games, setGames] = useState<GameSeries[]>([]);
-  useEffect(() => {
-    axios
-      .get("http://localhost:3003/games")
-      .then((response) => setGames(response.data))
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
-
+  const [gameSeries, setGameSeries] = useState<GameSeries[]>([]);
+  const [games, setGames] = useState<Game[]>([]);
   const [showAddGameModal, setShowAddGameModal] = useState(false);
 
-  const processGame = (game: GameSeries) => {
-    if (game.games.length === 1) {
-      return <li>{formatGame(game.games[0])}</li>;
+  const fetchGames = async () => {
+    const seriesSnapshot = await getDocs(collection(db, "gameSeries"));
+    const seriesData = seriesSnapshot.docs.map(
+      (doc) => ({ id: doc.id, ...doc.data() } as GameSeries)
+    );
+    setGameSeries(seriesData);
+
+    const gameSnapshot = await getDocs(collection(db, "game"));
+    const gameData = gameSnapshot.docs.map(
+      (doc) => ({ id: doc.id, ...doc.data } as Game)
+    );
+    setGames(gameData);
+  };
+
+  useEffect(() => {
+    fetchGames();
+  }, []);
+
+  const processSeries = (series: GameSeries) => {
+    const seriesGames = games.filter((game) => game.seriesId === series.id);
+    if (seriesGames.length === 1) {
+      return <li key={seriesGames[0].id}>{formatGame(seriesGames[0])}</li>;
     } else {
       return (
-        <details>
-          <summary>{game.name}</summary>
+        <details key={series.id}>
+          <summary>{series.name}</summary>
           <ul>
-            {game.games.map((game) => (
-              <li>{formatGame(game)}</li>
+            {seriesGames.map((game) => (
+              <li key={game.id}>{formatGame(game)}</li>
             ))}
           </ul>
         </details>
@@ -66,10 +81,14 @@ const GameList: React.FC = () => {
       <div>
         <button onClick={() => setShowAddGameModal(true)}>Add Game</button>
         {showAddGameModal && (
-          <AddGameModal setModalVisible={setShowAddGameModal} />
+          <AddGameModal
+            setModalVisible={setShowAddGameModal}
+            setGameSeries={setGameSeries}
+            setGames={setGames}
+          />
         )}
       </div>
-      <ul>{games.map((game) => processGame(game))}</ul>
+      <ul>{gameSeries.map((series) => processSeries(series))}</ul>
     </div>
   );
 };
