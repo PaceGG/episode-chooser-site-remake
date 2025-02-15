@@ -33,7 +33,7 @@ const GameList: React.FC = () => {
 
     const gameSnapshot = await getDocs(collection(db, "game"));
     const gameData = gameSnapshot.docs.map(
-      (doc) => ({ id: doc.id, ...doc.data } as Game)
+      (doc) => ({ id: doc.id, ...doc.data() } as Game)
     );
     setGames(gameData);
   };
@@ -52,11 +52,9 @@ const GameList: React.FC = () => {
           <summary>{series.name}</summary>
           <ul>
             {seriesGames.map((game) => (
-              <div>
-                <li key={game.id}>
-                  {formatGame(game)} <EditorWindow game={game} />
-                </li>
-              </div>
+              <li key={game.id}>
+                {formatGame(game)} <EditorWindow game={game} />
+              </li>
             ))}
           </ul>
         </details>
@@ -64,7 +62,7 @@ const GameList: React.FC = () => {
     }
   };
 
-  const handleRightCLick = () => {};
+  const handleRightClick = () => {};
 
   const formatTime = (time: number) => {
     const hours = Math.floor(time / 3600);
